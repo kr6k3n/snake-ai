@@ -48,9 +48,26 @@ game_board *new_game_board(size_t width, size_t height)
   new_board->snake = new_snake;
 
   new_board->food = new_food(new_board);
-  free(snake_x);
-  free(snake_y);
+
   return new_board;
+}
+
+
+void debug_game_board(game_board *gb)
+{
+  printf("-gameboard @ %p\n", gb);
+  printf(" -dimensions width: %lu height: %lu\n ", gb->width, gb->height);
+  debug_snake(gb->snake);
+}
+
+void debug_snake(snake *s)
+{
+  printf("-snake @%p\n", s);
+  snake* snake_ptr = s;
+  while(snake_ptr){
+    printf("   -snake pos: x %d, y %d\n", snake_ptr->position->x, snake_ptr->position->y);
+    snake_ptr = snake_ptr->next;
+  }
 }
 /*
  *  Simulate time step and returns a game status
@@ -60,23 +77,23 @@ game_status time_step(game_board *gb, direction direction)
   //determine next head position
   point *new_head = (point*) malloc(sizeof(point));
   new_head->x = gb->snake->position->x;
-  new_head->x = gb->snake->position->y;
+  new_head->y = gb->snake->position->y;
   switch (direction)
   {
     case UP:
-      new_head->y--;break;
+      new_head->y = new_head->y -1; break;
     case DOWN:
-      new_head->y++;break;
+      new_head->y = new_head->y + 1;break;
     case LEFT:
-      new_head->x--;break;
+      new_head->x = new_head->x - 1; break;
     case RIGHT:
-      new_head->x++;break;
+      new_head->x = new_head->x +1; break;
   }
   //check for border colisions
-  if  (  new_head->x < 0 
+  if (   new_head->x < 0 
       || new_head->y < 0 
-      || new_head->x >= gb->width 
-      || new_head->y >= gb->height)
+      || new_head->x >= (int) gb->width 
+      || new_head->y >= (int) gb->height)
         return GAME_OVER;
   //check for self eating snake
   snake* snake_ptr= gb->snake;
@@ -98,8 +115,7 @@ game_status time_step(game_board *gb, direction direction)
   else{
     //delete tail
     snake *new_tail = gb->snake;
-    while (new_tail->next->next)
-      new_tail = new_tail->next;
+    while (new_tail->next->next) new_tail = new_tail->next;
     free(new_tail->next);
     new_tail->next = NULL;
   }

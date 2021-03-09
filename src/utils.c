@@ -45,3 +45,9 @@ int **two_D_int_array(size_t rows, size_t columns)
 		arr[i] = (int *)malloc(columns * sizeof(int));
 	return arr;
 }
+
+
+double rand1()
+{
+	return (double)rand() / (double)RAND_MAX;
+}

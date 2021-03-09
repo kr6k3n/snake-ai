@@ -1,5 +1,7 @@
 ✔ implement snake @started(21-03-07 16:47) @done(21-03-08 00:15) @lasted(7h28m24s)
-☐ implement generation
+☐ implement generation @started(21-03-09 12:29)
 ✔ snake game interface @done(21-03-08 00:15)
 ✔ implement frame buffer @done(21-03-08 00:15)
-☐ implement snake merging
+✔ implement snake mutation @done(21-03-09 12:29)
+☐ add activation function as a network param
+☐ add storage for neural_nets

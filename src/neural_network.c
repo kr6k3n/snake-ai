@@ -17,14 +17,13 @@ neural_network* new_neural_network(size_t *shape, size_t shape_size)
 	return nn;
 }
 
-tensor eval_neural_network(neural_network nn, tensor input)
+tensor eval_neural_network(neural_network *nn, tensor input)
 {
-	tensor* results = (tensor*) two_D_double_array(nn.shape_size, nn.shape[0]);
+	tensor* results = (tensor*) two_D_double_array(nn->shape_size, nn->shape[0]);
 	results[0] = input;
-	for (size_t i = 1; i < nn.shape_size; i++)
-		results[i] = *eval_connection_layer(nn.layer_connections[i], results[i-1]);
-
-	return results[nn.shape_size-(size_t)1];
+	for (size_t i = 1; i < (nn->shape_size-1); i++)
+		results[i] = *eval_connection_layer(nn->layer_connections[i], results[i-1]);
+	return results[nn->shape_size-1];
 } 
 
 
@@ -37,4 +36,13 @@ void debug_nn(neural_network nn, int show_layers)
 	if (show_layers)
 		for (size_t i = 0; i < nn.shape_size-1; i++)
 			debug_cl(nn.layer_connections[i]);
+}
+
+
+void free_neural_net(neural_network *nn){
+	free(&nn->shape);
+	for (size_t i = 0; i < (nn->shape_size-1); i++)
+		free_connection_layer(nn->layer_connections[i]);	
+	free(&nn->shape_size);
+	free(nn);
 }

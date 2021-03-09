@@ -3,7 +3,7 @@ src = $(wildcard ./src/*.c)
 _obj = $(src:.c=.o)
 obj = $(_obj:/src/=/obj/)
 
-LIBS = -lm 
+LIBS = -lm -lncurses
 
 nn: $(obj)
 	$(CC) -g $^ -o $@ $(LIBS)

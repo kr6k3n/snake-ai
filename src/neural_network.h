@@ -21,5 +21,5 @@ extern void debug_nn(neural_network nn, int show_layers);
 //NN IMPORTANT functions
 //neural network
 extern neural_network *new_neural_network(size_t *shape, size_t shape_size);
-
+extern tensor eval_neural_network(neural_network nn, tensor input);
 #endif

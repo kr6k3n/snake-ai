@@ -4,15 +4,11 @@ double sigmoid(double x)
 	return 1 / (1 + exp(-x));
 }
 
-double init_weight()
-{
-	return (double)rand() / (double)RAND_MAX;
-}
 tensor rand_tensor(size_t tensor_size)
 {
 	tensor result = (tensor) malloc(sizeof(tensor)*tensor_size);
 	for (size_t i = 0; i < tensor_size; i++)
-		result[i] = init_weight();    
+		result[i] = rand1();    
 	return result;
 }
 
@@ -24,13 +20,13 @@ connection_layer *new_connection_layer(size_t left_side, size_t right_side){
 	weight** weights =(weight**) two_D_double_array(right_side, left_side);
 	for (size_t i = 0; i < right_side; i++)
 		for (size_t j = 0; j < left_side; j++){
-			weights[i][j] = init_weight();
+			weights[i][j] = rand1();
 		}
 	cl->weights = weights;
 	//init biases
 	double* biases = (double *)malloc(sizeof(double) * right_side);
 	for (size_t i = 0; i < right_side; i++)
-		biases[i] = init_weight();
+		biases[i] = rand1();
 	cl->biases = biases;
 
 	return cl;
@@ -60,4 +56,15 @@ void debug_cl(connection_layer cl)
 		printf(" %f\n", cl.biases[i]);
 	}
 	printf("    ]\n");
+}
+
+void free_connection_layer(connection_layer* con)
+{
+	free(con->biases);
+	for (size_t i = 0; i < con->right_side; i++)
+		free(con->weights[i]);
+	free(con->weights);
+	free(&con->left_side);
+	free(&con->right_side);
+	free(con);
 }

@@ -2,12 +2,13 @@
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "utils.h"
 
 #ifndef RENDER
 #define RENDER
 
-#define init_ncurses() ({\ 
+#define init_ncurses() ({\
               initscr();\
               cbreak();\
               noecho();\
@@ -21,6 +22,7 @@
 #define refresh_screen() refresh()
 
 extern direction get_next_move(direction previous);
-extern void display_points(snake *snake, const chtype symbol);
-
+extern void display_game(game_board *gb) ;
+extern tensor nn_frame(game_board *gb);
+extern void play_game();
 #endif
