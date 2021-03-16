@@ -1,12 +1,13 @@
-CC=gcc
+CC=gcc -g3 #-fsanitize=address
 src = $(wildcard ./src/*.c)
-_obj = $(src:.c=.o)
-obj = $(_obj:/src/=/obj/)
+obj = $(src:.c=.o)
+undefine CFLAGS
+undefine CPPFLAGS
 
 LIBS = -lm -lncurses
 
 nn: $(obj)
-	$(CC) -g $^ -o $@ $(LIBS)
+	$(CC) $^ -o $@  $(LIBS)
 run:
 	./nn
 
@@ -14,4 +15,4 @@ run:
 clean:
 	rm -f $(obj) nn
 
-routine: clean nn run
+all: clean nn

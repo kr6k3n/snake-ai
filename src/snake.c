@@ -1,6 +1,6 @@
 #include "snake.h"
 
-
+//returns pointer to new food position
 point *new_food(game_board *gb)
 {
   point* new_point = (point*) malloc(sizeof(point));
@@ -9,6 +9,7 @@ point *new_food(game_board *gb)
   return new_point;
 }
 
+//returns pointer to new point list
 point_list *new_point_list(size_t size)
 {
   point_list* head = (point_list*) malloc(sizeof(point_list));
@@ -21,13 +22,11 @@ point_list *new_point_list(size_t size)
   head->next = new_point_list(size-1);
   return head;
 }
-
+//compares positions
 bool same_point(point *p1, point *p2){
   return (p1->x == p2->x) && (p1->y == p2->y);
 }
-/*
- *  Initializes game_board
- */
+// Initializes game_board
 game_board *new_game_board(size_t width, size_t height)
 {
   game_board* new_board = (game_board*) malloc(sizeof(game_board));

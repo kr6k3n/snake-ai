@@ -51,3 +51,15 @@ double rand1()
 {
 	return (double)rand() / (double)RAND_MAX;
 }
+
+int get_max_index(double *arr, size_t arr_size)
+{
+	double max = -1;
+	int index = -1;
+	for (size_t i = 0; i < arr_size; i++)
+		if (arr[i] > max){
+			max = arr[i];
+			index = i;
+		}
+	return index;
+}
