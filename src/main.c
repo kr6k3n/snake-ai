@@ -7,7 +7,7 @@ int main(int argc, char argv[])
 	srand(time(0));
 	int show_layers = false;
 
-	size_t snake_amount = 1;
+	size_t snake_amount = 10;
 	size_t shape[5] = {screen_size*2, 
 					   screen_size,
 					   screen_size/2,
@@ -18,7 +18,11 @@ int main(int argc, char argv[])
 	size_t height = 17;
 	generation *test_gen = new_generation(snake_amount, shape, shape_size, width, height);
 	//play_game();
-	generation_step(test_gen);
+	for (size_t i = 0; i < 10; i++)
+	{
+		printf("generation step: %lu\n", i+1);
+		generation_step(test_gen);
+	}
 	printf("\n");
 	return 0;
 }

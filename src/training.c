@@ -54,8 +54,9 @@ game_status simulator_step(simulator *sim)
 	size_t output_size = sim->nn->shape[sim->nn->shape_size-1];
 	direction dir = get_max_index(*nn_output, output_size);
 	game_status stat = time_step(sim->gb, dir);
-	if (stat == OK)
+	if (stat){
 		sim->time_survived = sim->time_survived + 1;
+	}
 	return stat;
 }
 
@@ -74,8 +75,7 @@ generation *new_generation(size_t gen_size,
 }
 
 int score(simulator *s) {
-	return exp2(s->gb->snake_size * s->time_survived) + s->time_survived;
-	//(self.length*self.time)**2 + self.time
+	return pow(s->gb->snake_size * s->time_survived, 1) + s->time_survived;
 }
 
 int compare_simulators(simulator *s1, simulator *s2)
@@ -91,13 +91,17 @@ void generation_step(generation *gen)
 		//simulate snake while alive
 		while (simulator_step(gen->simulators[i]))
 			continue;
+		printf("simulator %lu survived %d time steps and got size %d\n", 
+			   i,
+			   gen->simulators[i]->time_survived, 
+			   gen->simulators[i]->gb->snake_size);
 	}
 	//2. kill half snakes
-	//sort them by score
-	printf("sorted scores : \n");
+	//2.1 sort them by score
 	int (*compar)(simulator *s1, simulator *s2);
     compar = &compare_simulators;
 	qsort(gen->simulators, gen->gen_size, sizeof(simulator*), compar);
+	printf("sorted scores : \n");
 	for (size_t i = 0; i < gen->gen_size; i++)
 		printf("score: %d\n", score(gen->simulators[i]));
 	

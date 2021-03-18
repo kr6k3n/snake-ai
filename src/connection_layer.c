@@ -32,8 +32,6 @@ connection_layer *new_connection_layer(size_t left_side, size_t right_side){
 
 tensor *eval_connection_layer(connection_layer *cl, tensor input)
 {
-	print_double_arr(input, cl->left_side);
-	printf("\n input\n");
 	tensor output = (tensor) malloc(sizeof(double)*cl->right_side);
 	for (size_t i = 0; i < cl->right_side; i++){
 		for (size_t j = 0; j < cl->left_side; j++)

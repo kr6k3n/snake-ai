@@ -57,6 +57,7 @@ void debug_game_board(game_board *gb)
   printf("-gameboard @ %p\n", gb);
   printf(" -dimensions width: %lu height: %lu\n ", gb->width, gb->height);
   debug_snake(gb->snake);
+  printf(" -snake size %d\n", gb->snake_size);
 }
 
 void debug_snake(snake *s)
