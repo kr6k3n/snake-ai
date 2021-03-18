@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #ifndef UTILS
 #define UTILS
@@ -17,4 +18,6 @@ extern int **two_D_int_array(size_t rows, size_t columns);
 
 extern int get_max_index(double *arr, size_t arr_size);
 extern double rand1();
+
+extern bool is_number(char *string);
 #endif

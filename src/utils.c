@@ -63,3 +63,12 @@ int get_max_index(double *arr, size_t arr_size)
 		}
 	return index;
 }
+
+bool is_number(char *string)
+{
+	size_t length = strlen(string);
+	for (size_t i = 0; i < length; i++)
+		if (!isdigit(string[i]))
+			return false;
+	return true;
+}

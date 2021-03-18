@@ -3,6 +3,8 @@
 #include <math.h>
 #include "render_snake.h"
 
+#ifndef TRAINING
+#define TRAINING
 
 typedef struct simulator{
 	game_board* gb;
@@ -24,3 +26,5 @@ simulator *new_simulator(size_t *shape, size_t shape_size, size_t width, size_t 
 extern generation *new_generation(size_t snake_amount, size_t *shape, size_t shape_size, size_t width, size_t height);
 tensor merge_frames(tensor current_frame, tensor past_frame, size_t frame_size);
 extern void generation_step(generation *gen);
+
+#endif

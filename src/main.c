@@ -24,6 +24,7 @@ int main(int argc, char argv[])
 		generation_step(test_gen);
 	}
 	printf("\n");
+	test_folder();
 	return 0;
 }
 
